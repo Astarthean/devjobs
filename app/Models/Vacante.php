@@ -23,6 +23,16 @@ class Vacante extends Model
         'user_id'
     ];
 
+    public function categoria()
+    {
+        return $this->belongsTo(Categoria::class);
+    }
+
+    public function salario()
+    {
+        return $this->belongsTo(Salario::class);
+    }
+
     public function getUltimoDiaAttribute($value)
     {
         return Carbon::parse($value);  // Convierte el valor a Carbon
