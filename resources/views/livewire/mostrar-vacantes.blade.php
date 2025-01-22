@@ -18,10 +18,11 @@
                         class="bg-gray-700 py-2 px-4 rounded-lg text-white text-xs font-bold uppercase text-center">
                         Editar
                     </a>
-                    <a href="#"
+                    <button wire:click="$dispatch('mostrarAlerta',{vacanteId: {{ $vacante->id }}})"
                         class="bg-red-700 py-2 px-4 rounded-lg text-white text-xs font-bold uppercase text-center">
                         Eliminar
-                    </a>
+                    </button>
+
                 </div>
             </div>
         @empty
@@ -33,3 +34,34 @@
         {{ $vacantes->links() }}
     </div>
 </div>
+
+@push('scripts')
+    <script>
+        Livewire.on('mostrarAlerta', ({
+            vacanteId
+        }) => {
+            Swal.fire({
+                title: "¿Eliminar Vacante?",
+                text: "Una vacante eliminada no se puede recuperar!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Sí, eliminar!",
+                cancelButtonText: "Cancelar"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Eliminar la vacante
+                    Livewire.dispatch('eliminarVacante', ({
+                        vacanteId
+                    }))
+                    Swal.fire({
+                        title: "Eliminada!",
+                        text: "La vacante ha sido eliminada.",
+                        icon: "success"
+                    });
+                }
+            });
+        })
+    </script>
+@endpush

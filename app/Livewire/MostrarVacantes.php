@@ -3,10 +3,18 @@
 namespace App\Livewire;
 
 use App\Models\Vacante;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class MostrarVacantes extends Component
 {
+    #[On('eliminarVacante')]
+    public function eliminarVacante(Vacante $vacanteId)
+    {
+        $vacanteId->delete();
+    }
+
+
     public function render()
     {
         $vacantes = Vacante::where('user_id', auth()->user()->id)->paginate(5);
