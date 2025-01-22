@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Vacante;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -13,6 +14,7 @@ class VacanteController extends Controller
      */
     public function index()
     {
+        Gate::authorize('viewAny', Vacante::class);
         return view('vacantes.index');
     }
 
@@ -21,6 +23,7 @@ class VacanteController extends Controller
      */
     public function create()
     {
+        Gate::authorize('create', Vacante::class);
         return view('vacantes.create');
     }
 
