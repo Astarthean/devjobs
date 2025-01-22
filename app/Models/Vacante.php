@@ -33,6 +33,11 @@ class Vacante extends Model
         return $this->belongsTo(Salario::class);
     }
 
+    public function candidatos()
+    {
+        return $this->hasMany(Candidato::class);
+    }
+
     public function getUltimoDiaAttribute($value)
     {
         return Carbon::parse($value);  // Convierte el valor a Carbon
